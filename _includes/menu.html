@@ -1,0 +1,53 @@
+<header class="site-header">
+	<div class="site-menu-contents">
+
+    <h1><a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a></h1>
+    
+    {% if site.subtitle %}
+    <h2 class="site-subtitle">{{ site.subtitle }}</h2>
+    {% endif %}
+
+    <nav class="site-nav">
+        <ul>
+        {% for node in site.pages %}
+            {% if node.navbar != false %}
+            	{% if node.title %}
+                	<li><a href="{{ node.url | prepend: site.baseurl }}">{{ node.title }}</a></li>
+            	{% endif %}
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </nav>
+
+
+
+
+
+	<div class="social">
+{% if site.github_username %}
+          <a href="https://github.com/{{ site.github_username }}">
+            <i class="fa fa-github-square fa-3x" aria-label="Github"></i>
+          </a>
+{% endif %}
+{% if site.twitter_username %}
+          <a href="https://twitter.com/{{ site.twitter_username }}">
+            <i class="fa fa-twitter-square fa-3x" aria-label="Twitter"></i>
+          </a>
+{% endif %}
+{% if site.linkedin_url %}
+          <a href="{{ site.linkedin_url }}">
+            <i class="fa fa-linkedin-square fa-3x" aria-label="LinkedIn"></i>
+          </a>
+{% endif %} 
+      </div>
+      
+      
+
+	<div class="small-print">
+    {{ site.copyright }}
+    <br />
+    <a href="/privacy">Privacy &amp; Cookies</a>
+    </div>
+
+	</div>
+</header>

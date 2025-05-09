@@ -1,0 +1,41 @@
+<footer class="site-footer">
+
+  <div class="wrap">
+
+      <ul>
+        {% if site.github_username %}<li>
+          <a href="https://github.com/{{ site.github_username }}">
+            <span class="icon-svg">
+	      <img src="{{ "/images/github-icon.svg" | prepend: site.baseurl }}" width="16" alt="github icon">
+            </span>
+            <span class="username">{{ site.github_username }}</span>
+          </a>
+        </li>{% endif %}
+        {% if site.twitter_username %}<li>
+          <a href="https://twitter.com/{{ site.twitter_username }}">
+            <span class="icon-svg">
+              <img src="{{ "/images/twitter-icon.svg" | prepend: site.baseurl }}" width="16" alt="twitter icon">
+            </span>
+            <span class="username">{{ site.twitter_username }}</span>
+          </a>
+        </li>{% endif %}
+       {% if site.linkedin_username %}<li>
+          <a href="https://www.linkedin.com/profile/view?id={{ site.linkedin_username }}">
+            <span class="icon-svg">
+              <img src="{{ "/images/linkedin-icon.svg" | prepend: site.baseurl }}" width="16" alt="linkedin icon">
+            </span>
+            <span class="username">Adrian Russell</span>
+          </a>
+        </li>{% endif %}
+      </ul>
+
+    <div class="footer-copyright">
+    {{ site.copyright }}
+    </div>
+
+  </div>
+
+
+  
+
+</footer>

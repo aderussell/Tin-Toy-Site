@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+  <head>
+    <meta charset="utf-8">
+        
+    <meta name="keywords" content="adrian, russell, iOS, Mac, OS X, software, programming, objective-c, swift, uk, bristol">
+        
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tin Toy - Tin Toy</title>
+    <meta name="viewport" content="initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Adrian Russell is a software engineer based in the South West of England, UK. Adrian specialises in development for iOS and Mac OS X.">
+    <link rel="canonical" href="http://localhost:4000/support">
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/tintoy.css">
+    <link rel="stylesheet" href="/stylesheets/highlight.css">
+
+    <meta name="theme-color" content="#222222" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+
+    
+     <script src="/demos/heights/heights.js"></script>
+    
+
+  
+     <link rel="stylesheet" href="/stylesheets/height.css">
+    
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53540281-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+</head>
+
+    <body>
+
+    <div class="tintoy-site-nav">
+      <ul>
+        <li><a href="/" class="title-nav">
+          <picture>
+            <source srcset="/images/tintoy/tin-toy-icon-light.png" media="(prefers-color-scheme: light)"/>
+            <img src="/images/tintoy/tin-toy-icon.png" height="24" />
+        </picture>
+          <!-- <span class="title">Tin Toy</span> -->
+        </a></li>
+        <li><a href="/support" class="other-nav">Tutorial</a></li>
+        <li><a href="/examples" class="other-nav">Examples</a></li>
+      </ul>
+    </div>
+
+	<div class="container">
+      <h2 id="creating-a-shader">Creating a shader</h2>
+
+<p>The structure of are functions within the shader are based upon those from shadertoy.com but with a few differences:</p>
+<ul>
+  <li>The fragCoord passed into the shader function is proportional (between 0-1) rather than a pixel value. This may change in future betas though.</li>
+  <li>The xy mouse position is not just for when the left mouse button is pressed, but for any button state.</li>
+  <li>The keyboard texture currently uses the carbon key values for the positions. This may change in future betas depending on feedback.</li>
+</ul>
+
+<p>The easiest way to start creating a shader is to use the template. This can be created from the ‘New from Default Template…’ option in the File menu. It will give you a default function for the main shader and the cubemap.</p>
+
+<h3 id="the-function-signatures">The function signatures</h3>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[[</span><span class="n">visible</span><span class="p">]]</span>
+<span class="n">half4</span> <span class="nf">mainFragment</span><span class="p">(</span><span class="n">float2</span> <span class="n">fragCoord</span><span class="p">,</span> <span class="n">constant</span> <span class="n">FragmentUniforms</span> <span class="o">&amp;</span><span class="n">uniforms</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">half4</span> <span class="n">finalColor</span> <span class="o">=</span> <span class="n">half4</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+    <span class="c1">// perform</span>
+    <span class="k">return</span> <span class="n">finalColor</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[[</span><span class="n">visible</span><span class="p">]]</span>
+<span class="n">half4</span> <span class="nf">bufferA</span><span class="p">(</span><span class="n">float2</span> <span class="n">fragCoord</span><span class="p">,</span> <span class="n">constant</span> <span class="n">FragmentUniforms</span> <span class="o">&amp;</span><span class="n">uniforms</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// works for bufferA, bufferB, bufferC, &amp; bufferD</span>
+    <span class="n">half4</span> <span class="n">finalColor</span> <span class="o">=</span> <span class="n">half4</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+    <span class="c1">// perform</span>
+    <span class="k">return</span> <span class="n">finalColor</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[[</span><span class="n">visible</span><span class="p">]]</span>
+<span class="n">half4</span> <span class="nf">mainCubemap</span><span class="p">(</span><span class="n">float2</span> <span class="n">fragCoord</span><span class="p">,</span> <span class="n">float3</span> <span class="n">rayOrigin</span><span class="p">,</span> <span class="n">float3</span> <span class="n">rayDirection</span><span class="p">,</span> <span class="n">constant</span> <span class="n">FragmentUniforms</span> <span class="o">&amp;</span><span class="n">uniforms</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">half4</span> <span class="n">finalColor</span> <span class="o">=</span> <span class="n">half4</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+    <span class="c1">// perform</span>
+    <span class="k">return</span> <span class="n">finalColor</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="the-uniforms">The uniforms</h3>
+<p>Each of the render methods are provided a uniform struct of values with contains the inputs and textures.</p>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">FragmentUniforms</span> <span class="p">{</span>
+    <span class="kt">float</span> <span class="n">time</span><span class="p">;</span>                     <span class="c1">// the current time through the render in seconds</span>
+    <span class="kt">float</span> <span class="n">timeDelta</span><span class="p">;</span>                <span class="c1">// the time it takes to render the last frame, in seconds</span>
+    <span class="kt">float</span> <span class="n">frameRate</span><span class="p">;</span>                <span class="c1">// currently pinned to 60</span>
+    <span class="kt">int</span> <span class="n">frame</span><span class="p">;</span>                      <span class="c1">// the count of the current frame</span>
+    <span class="n">int4</span> <span class="n">date</span><span class="p">;</span>                      <span class="c1">// the date as year, month, dat, and time in seconds as the .xyzw</span>
+    <span class="n">float2</span> <span class="n">resolution</span><span class="p">;</span>              <span class="c1">// the resolution of the viewport</span>
+    <span class="n">float4</span> <span class="n">mouse</span><span class="p">;</span>                   <span class="c1">// the current mouse position on the viewport as .xy, and the position a left click started as .zw</span>
+    <span class="n">float4</span> <span class="n">textureMediaTimes</span><span class="p">;</span>       <span class="c1">// the times of media for each of the four textures in the x, y, z, &amp; w values. 0 if not applicable.</span>
+    <span class="n">texture2d</span><span class="o">&lt;</span><span class="kr">half</span><span class="o">&gt;</span> <span class="n">textureA</span><span class="p">;</span>       <span class="c1">// the texture in slot A. If not set in the app it is a default missing-texture appearance.</span>
+    <span class="n">texture2d</span><span class="o">&lt;</span><span class="kr">half</span><span class="o">&gt;</span> <span class="n">textureB</span><span class="p">;</span>       <span class="c1">// the texture in slot B. If not set in the app it is a default missing-texture appearance.</span>
+    <span class="n">texture2d</span><span class="o">&lt;</span><span class="kr">half</span><span class="o">&gt;</span> <span class="n">textureC</span><span class="p">;</span>       <span class="c1">// the texture in slot C. If not set in the app it is a default missing-texture appearance.</span>
+    <span class="n">texture2d</span><span class="o">&lt;</span><span class="kr">half</span><span class="o">&gt;</span> <span class="n">textureD</span><span class="p">;</span>       <span class="c1">// the texture in slot D. If not set in the app it is a default missing-texture appearance. </span>
+    <span class="n">texturecube</span><span class="o">&lt;</span><span class="kr">half</span><span class="o">&gt;</span> <span class="n">cubemap</span><span class="p">;</span>      <span class="c1">// the texture created by the cubemap function. A black texture if not implemented.</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<p>These need to be defined at the top of the metal file being rendered and are automatically included in the template file for the shader.</p>
+
+<h2 id="providing-textures">Providing textures</h2>
+
+<p>Much like shadertoy it has the functionality to pass four textures (and a cubemap) to each of the rendering stages. These can be the output buffer of one of the render stages, an image, a frame of a video, a texture with states of keyboard key presses, or the webcam.</p>
+
+<p>These can be specified independently for each stage allowing stages to be changed together.</p>
+
+<h2 id="viewing-the-outputs">Viewing the outputs</h2>
+<p>When launched, the default output render is the main fragment but it is possible to change to view the output of each buffer, view them all mixed togethor, and also view the output of the cubemap as either a cubemap or as a equirectangular.</p>
+
+<p><img src="/images/blog/tintoy/changing-views.gif" alt="Changing output" /></p>
+
+	</div>
+	
+<footer>
+  © 2025 <a href="https://adrianrussell.co.uk">Adrian Russell</a>. All rights reserved.
+</footer>
+
+    </body>
+</html>

@@ -1,0 +1,15 @@
+<li class="shader-link-item">
+<a href="{{include.link}}">
+	{% if include.gif %}
+	<div class="gif_outer">
+		<img class="static" src="{{ include.image | prepend: page.imagebase | prepend: site.baseurl }}" alt="{{ include.name }}" />
+		<img class="active" src="{{ include.gif | prepend: page.imagebase | prepend: site.baseurl }}" alt="{{ include.name }}" />
+	</div>
+	{% elsif include.vid %}
+	<video class="video-preview" src="{{ include.vid | prepend: page.imagebase | prepend: site.baseurl }}" playsinline muted loop></video>
+	{% else %}
+	<img src="{{ include.image | prepend: page.imagebase | prepend: site.baseurl }}" alt="{{ include.name }}" />
+	{% endif %}
+	<span>{{ include.name }}</span>
+</a>
+</li>

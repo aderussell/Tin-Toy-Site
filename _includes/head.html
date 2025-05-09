@@ -1,0 +1,30 @@
+<head>
+    <meta charset="utf-8">
+        
+    <meta name="keywords" content="adrian, russell, iOS, Mac, OS X, software, programming, objective-c, swift, uk, bristol">
+        
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% if page.title %}Adrian Russell - {{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="viewport" content="initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="{{ site.description }}">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ "/stylesheets/main.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ "/stylesheets/highlight.css" | prepend: site.baseurl }}">
+
+    {% if page.js %}
+     <script src="{{ page.js }}"></script>
+    {% endif %}
+
+	{% if page.css %}
+     <link rel="stylesheet" href="{{ page.css }}">
+    {% endif %}
+
+    {% include google_analytics.html %}
+
+</head>
