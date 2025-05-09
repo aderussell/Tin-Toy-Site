@@ -2,8 +2,6 @@
 layout: tintoy
 navbar: false
 title: Tin Toy
-css: /stylesheets/height.css
-js: /demos/heights/heights.js
 imagebase: "/images/blog/tintoy/"
 ---
 

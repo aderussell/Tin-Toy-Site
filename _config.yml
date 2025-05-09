@@ -11,6 +11,8 @@ linkedin_url: https://uk.linkedin.com/in/adrian-russell-4b15aa74
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:title
 
+include: ['_tintoy']
+
 sass:
     sass_dir: stylesheets
     style: compressed
