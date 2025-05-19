@@ -12,13 +12,18 @@
     <meta name="description" content="Adrian Russell is a software engineer based in the South West of England, UK. Adrian specialises in development for iOS and Mac OS X.">
     <link rel="canonical" href="http://localhost:4000/">
 
-    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/images/tintoy/tin-toy-icon-light.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script>hljs.highlightAll();</script>
 
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/tintoy.css">
-    <link rel="stylesheet" href="/stylesheets/highlight.css">
 
     <meta name="theme-color" content="#222222" media="(prefers-color-scheme: dark)">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
@@ -65,13 +70,27 @@
   <h1 id="tin-toy">Tin Toy</h1>
   <h2 id="metal-shaders-made-easy">Metal shaders made easy</h2>
 
-  <p><a target="_blank" href="https://testflight.apple.com/join/38YuPtRy">
+  <div class="dual-column">
+
+<a class="column-left" target="_blank" href="https://testflight.apple.com/join/38YuPtRy">
 	<picture>
 	  <source srcset="/images/tintoy/mas-dark.svg" media="(prefers-color-scheme: light)" />
 	  <source srcset="/images/tintoy/mas-light.svg" media="(prefers-color-scheme: dark)" />
 	  <img src="/images/tintoy/mas-dark.svg" />
 	</picture>
-</a></p>
+</a>
+
+
+<a class="column-right" target="_blank" href="https://testflight.apple.com/join/38YuPtRy">
+	<picture>
+	  <source srcset="/images/tintoy/app-store-dark.svg" media="(prefers-color-scheme: light)" />
+	  <source srcset="/images/tintoy/app-store-light.svg" media="(prefers-color-scheme: dark)" />
+	  <img src="/images/tintoy/app-store-dark.svg" />
+	</picture>
+</a>
+
+</div>
+
 </div>
 
 <h2 id="intro">Intro</h2>
@@ -86,7 +105,10 @@
 <li class="shader-link-item">
 <a href="/demos/tintoy/rain.metal">
 	
-	<video class="video-preview" src="/images/blog/tintoy/rain.mp4" playsinline="" muted="" loop=""></video>
+	<video class="video-preview" autoplay="" playsinline="" muted="" loop="">
+		<source src="/images/blog/tintoy/rain.mp4" />
+		<img src="/images/blog/tintoy/rain.png" alt="Rain" />
+	</video>
 	
 	<span>Rain</span>
 </a>
@@ -94,7 +116,10 @@
 <li class="shader-link-item">
 <a href="/demos/tintoy/PlasmaBall.metal">
 	
-	<video class="video-preview" src="/images/blog/tintoy/plasma.mp4" playsinline="" muted="" loop=""></video>
+	<video class="video-preview" autoplay="" playsinline="" muted="" loop="">
+		<source src="/images/blog/tintoy/plasma.mp4" />
+		<img src="/images/blog/tintoy/plasma.png" alt="Plasma ball" />
+	</video>
 	
 	<span>Plasma ball</span>
 </a>
@@ -102,7 +127,10 @@
 <li class="shader-link-item">
 <a href="/demos/tintoy/warp-vortex.metal">
 	
-	<video class="video-preview" src="/images/blog/tintoy/warp.mp4" playsinline="" muted="" loop=""></video>
+	<video class="video-preview" autoplay="" playsinline="" muted="" loop="">
+		<source src="/images/blog/tintoy/warp.mp4" />
+		<img src="/images/blog/tintoy/warp.png" alt="Warp" />
+	</video>
 	
 	<span>Warp</span>
 </a>
@@ -110,7 +138,10 @@
 <li class="shader-link-item">
 <a href="/demos/tintoy/zebra-valley-2b.metal">
 	
-	<video class="video-preview" src="/images/blog/tintoy/zebra.mp4" playsinline="" muted="" loop=""></video>
+	<video class="video-preview" autoplay="" playsinline="" muted="" loop="">
+		<source src="/images/blog/tintoy/zebra.mp4" />
+		<img src="/images/blog/tintoy/zebra.png" alt="Zebra-valley" />
+	</video>
 	
 	<span>Zebra-valley</span>
 </a>

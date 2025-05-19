@@ -11,13 +11,28 @@ imagebase: "/images/blog/tintoy/"
 # Tin Toy
 ## Metal shaders made easy
 
-<a target="_blank" href="https://testflight.apple.com/join/38YuPtRy">
+
+<div class="dual-column">
+
+<a class="column-left" target="_blank" href="https://testflight.apple.com/join/38YuPtRy">
 	<picture>
 	  <source srcset="/images/tintoy/mas-dark.svg" media="(prefers-color-scheme: light)"/>
 	  <source srcset="/images/tintoy/mas-light.svg"  media="(prefers-color-scheme: dark)"/>
 	  <img src="/images/tintoy/mas-dark.svg"/>
 	</picture>
 </a>
+
+
+<a class="column-right" target="_blank" href="https://testflight.apple.com/join/38YuPtRy">
+	<picture>
+	  <source srcset="/images/tintoy/app-store-dark.svg" media="(prefers-color-scheme: light)"/>
+	  <source srcset="/images/tintoy/app-store-light.svg"  media="(prefers-color-scheme: dark)"/>
+	  <img src="/images/tintoy/app-store-dark.svg"/>
+	</picture>
+</a>
+
+</div>
+
 </div>
 
 

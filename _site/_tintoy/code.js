@@ -4,6 +4,8 @@ window.onload = function() {
   const videos = document.querySelectorAll(".video-preview")
 
   videos.forEach(video => {
+    video.pause()
+
     video.addEventListener("mouseover", function () {
       this.play()
     })

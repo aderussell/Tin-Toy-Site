@@ -14,6 +14,22 @@ html, body {
 	padding: 0;
 }
 
+
+.dual-column {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-gap: 20pt;
+  padding: 10pt;
+}
+
+.column-left {
+	justify-self: end;
+}
+
+.column-right {
+	justify-self: start;
+}
+
 body {
   font-family: system, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
   font-size: 1em;
@@ -362,6 +378,7 @@ blockquote.notice {
 /* Code */
 /* ----------------------------------------------------------*/
 
+/*
 pre, code {
   border: 1px solid #f2f2f2;
   color: #bf616a;
@@ -379,7 +396,6 @@ pre code {
   padding: 8px 12px;
 }
 
-/* terminal */
 pre.terminal {
   border: 1px solid #000;
   background-color: #333;
@@ -396,7 +412,7 @@ margin-block-start: 0;
 	margin-inline-end: 0;
 	margin-bottom: 20px;
 }
-
+*/
 
 
 /* stuff */

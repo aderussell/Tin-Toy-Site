@@ -1,14 +1,19 @@
 # Site settings
 title: Adrian Russell
 copyright: "Copyright © Adrian Russell"
-description: "Adrian Russell is a software engineer based in the South West of England, UK. Adrian specialises in development for iOS and Mac OS X."
+description: "Easily create shaders in Apple Metal with Tin Toy"
 baseurl: ""
 url: "https://tintoy.app"
 github_username:   aderussell
 linkedin_url: https://uk.linkedin.com/in/adrian-russell-4b15aa74
 
+highlighter: none
+
 # Build settings
 markdown: kramdown
+kramdown:
+   syntax_highlighter_opts:
+      disable : true
 permalink: /blog/:year/:month/:day/:title
 
 include: ['_tintoy']

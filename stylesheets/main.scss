@@ -158,6 +158,14 @@ iframe {
 }
 
 
+.dual-column {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 40pt;
+  padding: 10pt;
+}
+
+
 /* Menu */
 /* ----------------------------------------------------------*/
 

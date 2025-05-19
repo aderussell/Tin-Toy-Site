@@ -18,7 +18,7 @@ The easiest way to start creating a shader is to use the template. This can be c
 
 ### The function signatures
 
-```glsl
+```cpp
 [[visible]]
 half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
     half4 finalColor = half4(0,0,0,1);
@@ -27,7 +27,7 @@ half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
 }
 ```
 
-```glsl
+```cpp
 [[visible]]
 half4 bufferA(float2 fragCoord, constant FragmentUniforms &uniforms) {  // works for bufferA, bufferB, bufferC, & bufferD
     half4 finalColor = half4(0,0,0,1);
@@ -36,7 +36,7 @@ half4 bufferA(float2 fragCoord, constant FragmentUniforms &uniforms) {  // works
 }
 ```
 
-```glsl
+```cpp
 [[visible]]
 half4 mainCubemap(float2 fragCoord, float3 rayOrigin, float3 rayDirection, constant FragmentUniforms &uniforms) {
     half4 finalColor = half4(0,0,0,1);
@@ -49,7 +49,7 @@ half4 mainCubemap(float2 fragCoord, float3 rayOrigin, float3 rayDirection, const
 ### The uniforms
 Each of the render methods are provided a uniform struct of values with contains the inputs and textures.
 
-```glsl
+```cpp
 struct FragmentUniforms {
     float time;                     // the current time through the render in seconds
     float timeDelta;                // the time it takes to render the last frame, in seconds
