@@ -7,25 +7,29 @@ imagebase: "/images/blog/tintoy/"
 
 ## Creating a shader
 
-The structure of are functions within the shader are based upon those from shadertoy.com but with a few differences:
-* The fragCoord passed into the shader function is proportional (between 0-1) rather than a pixel value. This may change in future betas though.
-* The xy mouse position is not just for when the left mouse button is pressed, but for any button state.
-* The keyboard texture currently uses the carbon key values for the positions. This may change in future betas depending on feedback.
+A shader within Tin Toy provides a number of defined function signatures for defining your visuals.
+Each of these functions is called for every pixel within the destination buffer and the function will return the color to set that pixel.
 
 
-The easiest way to start creating a shader is to use the template. This can be created from the 'New from Default Template...' option in the File menu. It will give you a default function for the main shader and the cubemap.
+There are six functions signatures which will be used for creating your images. Each must be marked as `[[visible]]` for Tin Toy to know it is available.
 
-
-### The function signatures
+### Main
+`mainFragment` is the function for the main buffer which is the final destination and default output for your shader. This function is required for any shader.
 
 ```cpp
 [[visible]]
 half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
     half4 finalColor = half4(0,0,0,1);
-    // perform
     return finalColor;
 }
 ```
+
+It is passed in two parameters; the fragCoord which is the proportional position of the pixel (between 0-1) which will be written to and a struct of the uniform information; this is detailed below.
+To get the actual pixel coordinate, multiply the fragCoord by the `uniforms.resolution`.
+
+### Buffers
+
+There are four 2d buffers, the same size as the final main buffer, which can also be used. There function signatures are identical to the main fragment function but with named as `buffer{index}` with their identifiers 'A' to 'D'. For example buffer 'A' looks like:
 
 ```cpp
 [[visible]]
@@ -36,12 +40,34 @@ half4 bufferA(float2 fragCoord, constant FragmentUniforms &uniforms) {  // works
 }
 ```
 
+
+### Cubemap
+The final is a cubemap.
+
 ```cpp
-[[visible]]
 half4 mainCubemap(float2 fragCoord, float3 rayOrigin, float3 rayDirection, constant FragmentUniforms &uniforms) {
     half4 finalColor = half4(0,0,0,1);
     // perform
     return finalColor;
+}
+```
+
+The fragCoord is the position of the pixel on a face on the cubemap, this means that each fragCoord will be used six times, one for each face.
+It receives two more parameters than the other functions; It gets the `rayOrigin`, which is the origin from which the ray would be cast to hit the current pixel, and the `rayDirection` which is the vector direction. The direction can be used to calculate which face of the cubemap is being drawn to.
+
+```cpp
+// 1. get largest part of the rayDirection
+// 2. calculate the signum to know which side
+
+float max3(float3 rd) {
+   return max(max(rd.x, rd.y), rd.z);
+}
+
+float3 cubeFace(float3 rayDirection) {
+    float3 rd = abs(rayDirection);
+    if (max3(rd) == rd.x) return float3(sign(rayDirection.x), 0, 0);
+    if (max3(rd) == rd.y) return float3(0, sign(rayDirection.y), 0);
+    if (max3(rd) == rd.z) return float3(0, 0, sign(rayDirection.z));
 }
 ```
 
@@ -78,6 +104,26 @@ Much like shadertoy it has the functionality to pass four textures (and a cubema
 These can be specified independently for each stage allowing stages to be changed together.
 
 ## Viewing the outputs
-When launched, the default output render is the main fragment but it is possible to change to view the output of each buffer, view them all mixed togethor, and also view the output of the cubemap as either a cubemap or as a equirectangular.
+When launched, the default output render is the main fragment but it is possible to change to view the output of each buffer, view them all mixed together, and also view the output of the cubemap as either a cubemap or as a equirectangular.
 
 ![Changing output](/images/blog/tintoy/changing-views.gif)
+
+
+
+
+## The default shader
+The easiest way to start creating a shader is to use the template. This can be created from the 'New from Default Template...' option in the File menu. It will give you a default function for the main shader and the cubemap.
+
+The default shader for the main fragment is a copy of the default used by [shadertoy](https://www.shadertoy.com/new).
+It gives a moving gradient of color which changes along with the time.
+
+```cpp
+[[visible]]
+half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
+    float time = uniforms.time;
+    float3 color = 0.5 + 0.5 * cos(time + fragCoord.xyx + float3(0,2,4));
+    return half4(half3(color), 1.0);
+}
+```
+
+
