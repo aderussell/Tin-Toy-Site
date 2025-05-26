@@ -24,8 +24,8 @@ half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
 }
 ```
 
-It is passed in two parameters; the fragCoord which is the proportional position of the pixel (between 0-1) which will be written to and a struct of the uniform information; this is detailed below.
-To get the actual pixel coordinate, multiply the fragCoord by the `uniforms.resolution`.
+It is passed in two parameters; the fragCoord which is the pixel coordinate position which will be written to and a struct of the uniform information; this is detailed below.
+To get the proportional uv coordinate (between 0-1), divide the fragCoord by the `uniforms.resolution`.
 
 ### Buffers
 
@@ -77,19 +77,19 @@ Each of the render methods are provided a uniform struct of values with contains
 
 ```cpp
 struct FragmentUniforms {
-    float time;                     // the current time through the render in seconds
+    float time;                     // the current time through the render, in seconds
     float timeDelta;                // the time it takes to render the last frame, in seconds
     float frameRate;                // currently pinned to 60
     int frame;                      // the count of the current frame
-    int4 date;                      // the date as year, month, dat, and time in seconds as the .xyzw
+    int4 date;                      // the date as year, month, day, and time in seconds as the .xyzw
     float2 resolution;              // the resolution of the viewport
     float4 mouse;                   // the current mouse position on the viewport as .xy, and the position a left click started as .zw
-    float4 textureMediaTimes;       // the times of media for each of the four textures in the x, y, z, & w values. 0 if not applicable.
-    texture2d<half> textureA;       // the texture in slot A. If not set in the app it is a default missing-texture appearance.
-    texture2d<half> textureB;       // the texture in slot B. If not set in the app it is a default missing-texture appearance.
-    texture2d<half> textureC;       // the texture in slot C. If not set in the app it is a default missing-texture appearance.
-    texture2d<half> textureD;       // the texture in slot D. If not set in the app it is a default missing-texture appearance. 
-    texturecube<half> cubemap;      // the texture created by the cubemap function. A black texture if not implemented.
+    float4 textureMediaTimes;       // the times of media for each of the four textures in the x, y, z, & w values. 0 if not applicable
+    texture2d<half> textureA;       // the texture in slot A. If not set in the app it is a default missing-texture appearance
+    texture2d<half> textureB;       // the texture in slot B. If not set in the app it is a default missing-texture appearance
+    texture2d<half> textureC;       // the texture in slot C. If not set in the app it is a default missing-texture appearance
+    texture2d<half> textureD;       // the texture in slot D. If not set in the app it is a default missing-texture appearance.
+    texturecube<half> cubemap;      // the texture created by the cubemap function. A black texture if not implemented
 };
 
 ```
@@ -114,14 +114,15 @@ When launched, the default output render is the main fragment but it is possible
 ## The default shader
 The easiest way to start creating a shader is to use the template. This can be created from the 'New from Default Template...' option in the File menu. It will give you a default function for the main shader and the cubemap.
 
-The default shader for the main fragment is a copy of the default used by [shadertoy](https://www.shadertoy.com/new).
+The default shader for the main fragment is a copy of the default used by [Shadertoy](https://www.shadertoy.com/new).
 It gives a moving gradient of color which changes along with the time.
 
 ```cpp
 [[visible]]
 half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
+    float2 uv = fragCoord / uniforms.resolution;
     float time = uniforms.time;
-    float3 color = 0.5 + 0.5 * cos(time + fragCoord.xyx + float3(0,2,4));
+    float3 color = 0.5 + 0.5 * cos(time + uv.xyx + float3(0,2,4));
     return half4(half3(color), 1.0);
 }
 ```

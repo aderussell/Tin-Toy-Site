@@ -128,8 +128,7 @@ float2 Drops(float2 uv, float t, float l0, float l1, float l2) {
 }
 
 [[visible]]
-half4 mainFragment(float2 fragCoordI, constant FragmentUniforms &uniforms) {
-    float2 fragCoord = fragCoordI * uniforms.resolution;
+half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
     fragCoord.y = uniforms.resolution.y - fragCoord.y;
 //    float3 iMouse = uniforms.mouse.xyz;
     float3 iResolution = float3(uniforms.resolution, 1.0);

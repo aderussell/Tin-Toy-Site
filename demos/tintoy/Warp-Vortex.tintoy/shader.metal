@@ -1,4 +1,9 @@
-// Based upon https://www.shadertoy.com/view/MtsfD7
+//
+//  Test.metal
+//  Tin Toy
+//
+//  Created by Adrian Russell on 01/01/2024.
+//
 
 #include <metal_stdlib>
 using namespace metal;
@@ -31,6 +36,7 @@ float2x2 rot(float rads) {
 half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
     float pi = 3.14159;
     float iTime = uniforms.time;
+    fragCoord /= uniforms.resolution;
     float2 p = fragCoord - float2(0.5);
         p = rot(iTime * 1.25) * p;
         p = float2(p.x, -p.y) + .15;

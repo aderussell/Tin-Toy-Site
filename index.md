@@ -40,18 +40,3 @@ imagebase: "/images/blog/tintoy/"
 Based upon [shadertoy.com](https://shadertoy.com), Tin Toy allows for the easy creation and experimentation of shaders using Apple Metal on macOS.
 
 ![Tin Toy](/images/blog/tintoy/tintoy-rain-vid.gif)
-
-
-## Example Shaders
-
-
-<ul class="shader-block">
-
-{% include posts/shader-block.html name='Rain' link='/demos/tintoy/rain.metal' image='rain.png' vid='rain.mp4' %}
-{% include posts/shader-block.html name='Plasma ball' link='/demos/tintoy/PlasmaBall.metal' image='plasma.png' vid='plasma.mp4' %}
-{% include posts/shader-block.html name='Warp' link='/demos/tintoy/warp-vortex.metal' image='warp.png' vid='warp.mp4' %}
-{% include posts/shader-block.html name='Zebra-valley' link='/demos/tintoy/zebra-valley-2b.metal' image='zebra.png' vid='zebra.mp4' %}
-{% include posts/shader-block.html name='Ascii renderer' link='/demos/tintoy/ascii-renderer.metal' image='ascii.png' %}
-
-
-</ul>

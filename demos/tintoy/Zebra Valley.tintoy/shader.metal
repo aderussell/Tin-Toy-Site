@@ -21,18 +21,21 @@ struct FragmentUniforms {
 
 [[visible]]
 half4 mainFragment(float2 U, constant FragmentUniforms &uniforms) {
-    half4 O = half4(0.0);
+    half4 O = half4(0.0, 0.0, 0.0, 1.0);
     
-    float2 R = uniforms.resolution.xy;
-    U *= R;
-    U.y = R.y - U.y;
+    float2 Resolution = uniforms.resolution.xy;
+//    U *= Resolution;
+    U.y = Resolution.y - U.y;
     float iTime = uniforms.time;
-    U *= 7./R;
+    U *= 7.0 / Resolution;
     O-=O;
-    for(float i=0.,a,z = 1.5+.5*sin(iTime/2.); i++ < 70.; )
-            a = z* ( U.x + sin( i/6. + iTime ) ),
-            O = mix(O, half4(int(i)%2)* ( .7 - .3*sin(a) ),
-                    smoothstep(0.,15./R.y, 10.-i/6. + 2./z*cos(a) - U.y ) );
+    float z = 1.5+.5*sin(iTime/2.);
+    for(float i=0.0; i++ < 70.; ) {
+        float a = z * ( U.x + sin( i/6. + iTime ) );
+        O = mix(O, half4(int(i) % 2) * ( .7 - .3*sin(a) ),
+                    smoothstep(0.,15./ Resolution.y, 10.-i/6. + 2./z*cos(a) - U.y ) );
     
+    }
+    O.w = 1.0;
     return O;
 }
