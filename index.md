@@ -14,7 +14,7 @@ imagebase: "/images/blog/tintoy/"
 
 <div class="dual-column">
 
-<a class="column-left" target="_blank" href="https://testflight.apple.com/join/38YuPtRy">
+<a class="column-left" target="_blank" href="https://apps.apple.com/us/app/tin-toy/id6737349612">
 	<picture>
 	  <source srcset="/images/tintoy/mas-dark.svg" media="(prefers-color-scheme: light)"/>
 	  <source srcset="/images/tintoy/mas-light.svg"  media="(prefers-color-scheme: dark)"/>
