@@ -36,7 +36,6 @@ imagebase: "/images/blog/tintoy/"
 </div>
 
 
-## Intro
-Based upon [shadertoy.com](https://shadertoy.com), Tin Toy allows for the easy creation and experimentation of shaders using Apple Metal on macOS.
+![Tin Toy](/images/blog/tintoy/All-devices-A.png)
 
-![Tin Toy](/images/blog/tintoy/tintoy-rain-vid.gif)
+Based upon [shadertoy.com](https://shadertoy.com), Tin Toy allows for the easy creation and experimentation of shaders using Apple Metal on macOS.
