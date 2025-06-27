@@ -373,7 +373,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
                 
                 
                 half4 sc = texture(iChannel1, (pos_still.xz * pos_still.y / 2.0) - float2(0.5)) / 2.0;
-                float3 sc_f = float3(sc.xyz) * float3(0.5,1.0,0.0) / 2.0;
+                float3 sc_f = float3(sc.xyz) * float3(0.5,0.5,0.0) / 10.0;
                 
                // col2 = float3(0.95,0.0,0.00) * sc_f;
                 col2 = float3(0.25,0.0,0.00) + sc_f;
@@ -496,6 +496,14 @@ function setup(gl, canvas) {
 
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
+    var texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
+
+    var textureB = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, textureB);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
+
     var vertices = [1,-1, 1,1, -1,-1, -1,1];
     var vertex_buffer = gl.createBuffer();
 
@@ -542,12 +550,12 @@ function setup(gl, canvas) {
     var texture1Location = gl.getUniformLocation(shaderProgram, "iChannel1");
     gl.uniform1i(texture1Location, 1);
 
-    var texture = gl.createTexture();
-	gl.bindTexture(gl.TEXTURE_2D, texture);
-	 
-	// Fill the texture with a 1x1 blue pixel.
-	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
-	              new Uint8Array([0, 0, 255, 255]));
+
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+
+     gl.activeTexture(gl.TEXTURE0 + 1);
+     gl.bindTexture(gl.TEXTURE_2D, textureB);
 	 
 	// Asynchronously load an image
 	var image = new Image();
@@ -558,6 +566,15 @@ function setup(gl, canvas) {
 	  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image);
 	  gl.generateMipmap(gl.TEXTURE_2D);
 	});
+
+    var image2 = new Image();
+    image2.src = "_tintoy/grey-noise.png";
+    image2.addEventListener('load', function() {
+      // Now that the image has loaded make copy it to the texture.
+      gl.bindTexture(gl.TEXTURE_2D, textureB);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA,gl.UNSIGNED_BYTE, image2);
+      gl.generateMipmap(gl.TEXTURE_2D);
+    });
 
 
     // bind buffer objects
