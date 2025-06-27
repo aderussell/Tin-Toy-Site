@@ -7,7 +7,7 @@ imagebase: "/images/blog/tintoy/"
 ---
 
 <div class="heading-section" markdown="1">
-![Icon](/images/projects/tintoy-icon.png)
+<canvas id="myCanvas" width="300" height="300"></canvas>
 # Tin Toy
 ## Metal shaders made easy
 
