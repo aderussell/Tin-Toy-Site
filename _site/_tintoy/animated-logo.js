@@ -186,7 +186,9 @@ float map_full(float3 pos, float time, inout int type) {
     float extraScale = 0.85;
     float3 q = (pos * extraScale) - float3(0, 0.7, 0);// * rotate_y(time * 1.0);
     
-    float3 q2 = pos * rotate_y(time * -1.0);
+    float3 q2 = pos ;//* rotate_y(-time * -1.0);
+    
+    q = q * rotate_y(time * -1.0);
     
     float key = sdFlatKey(q.xy);
     d = opExtrusion( q, key, 0.05 ) - 0.02;
@@ -209,7 +211,7 @@ float map_full(float3 pos, float time, inout int type) {
     
     d = opUnion(d, cyl);
     
-    q *= rotate_y(-time);
+//    q *= rotate_y(-time);
 //    float c = sdRoundBox(q2 - float3(0.0,-1.9, 0.0), float3(1.6, 0.1, 1.6), 0.1);
     float c = sdCappedCylinder(q2, float3(-3.0,-11.5,0.0), float3(3.0,-11.5,-0.0), 10.0);
     float cylF = sdCappedCylinder(q2, float3(0.0,0.0,0.0), float3(0.0,-2.0,0.0), 0.4 / extraScale);
@@ -220,7 +222,6 @@ float map_full(float3 pos, float time, inout int type) {
     } else {
         type = 1;
     }
-
     d = opUnion(d,c);
     
     return d;
@@ -276,7 +277,7 @@ float calcSoftshadow( float3 ro, float3 rd, float tmin, float tmax, const float 
 bool squircle(vec2 fragCoord) {
     vec2 uv = fragCoord;
 
-    vec2 pos = vec2(0.0,0.0);
+    float2 pos = float2(0.0,0.0);
 
     float power = 5.0;
     float radius = 0.7;
@@ -284,15 +285,13 @@ bool squircle(vec2 fragCoord) {
 	return ( dist < pow(radius,power));
 }
 
-vec2 skew(vec2 fragCoord, float proportion) {
-    vec2 n = fragCoord;
-    n.x += (sign(fragCoord.x) * (fragCoord.y) * proportion);
-    n.y += (sign(fragCoord.y) * (fragCoord.y) * proportion);
-    return n;
-}
 
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
+    
+    float iTime = iTime;
+   // iTime = min(iTime, 7.3);
+    
     float3 tot = float3(0.0);
     
     float alpha = 0.0;
@@ -305,9 +304,18 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
         float3 ro = float3(0.0,0.0,9.0);
         float3 rd = normalize(float3(p,-3.5));
 
-        //iTime += 3.1415;
-        ro *= rotate_y(iTime * 1.0);
-        rd *= rotate_y(iTime * 1.0);
+        iTime += -4.1415;
+        float xRot = min(iTime,-0.2);
+        
+        ro *= rotate_x(-xRot * 0.1);
+        rd *= rotate_x(-xRot * 0.1);
+        
+//        ro *= rotate_y(iTime * 1.0);
+//        rd *= rotate_y(iTime * 1.0);
+        
+        
+//        ro *= rotate_z(iTime * 1.0);
+//        rd *= rotate_z(iTime * 1.0);
 
         float t = 7.0;
         int type = 0;
@@ -324,11 +332,13 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
         if( t<11.0 )
         {
             float3 pos = ro + t*rd;
-            float3 pos_still = pos * rotate_y(iTime * -1.0);
-            float3 nor = calcNormal(pos, iTime);
-            float3 lig = normalize(float3(0.4,0.9,0.7)) * rotate_y(iTime * 1.0);
+            float3 pos_still = pos ;//* rotate_y(iTime * -1.0);
+            float3 pos_move = pos * rotate_y(iTime * -1.0);
+            pos = pos_move;
+            float3 nor = calcNormal(pos_still, iTime);
+            float3 lig = normalize(float3(0.4,0.9,0.7));// * rotate_y(iTime * 1.0);
             float dif = clamp(dot(nor, lig), 0.0, 1.0);
-            float sha = calcSoftshadow( pos, lig, 0.001, 1.0, 16.0, iTime );
+            float sha = calcSoftshadow( pos_still, lig, 0.001, 1.0, 16.0, iTime );
             float amb = 0.5 + 0.5*nor.y;
             
             float2 posXY = pos.xy;
@@ -347,7 +357,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
             
             float3 ref = reflect( rd, nor );
             
-            float occ = calcAO( pos, nor, iTime );
+            float occ = calcAO( pos_still, nor, iTime );
             
             float3 half_way = normalize(-rd + lig);
             float specular = pow(clamp(dot(half_way,nor),0.0,1.0), 80.0);
@@ -388,7 +398,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
                 float3  hal = normalize( lig-rd );
                 float dif = clamp( dot( nor, lig ), 0.0, 1.0 );
               //if( dif>0.0001 )
-                      dif *= calcSoftshadow( pos, lig, 0.02, 2.5, 1.0, iTime );
+                      dif *= calcSoftshadow( pos_still, lig, 0.02, 2.5, 1.0, iTime );
                 float spe = pow( clamp( dot( nor, hal ), 0.0, 1.0 ),16.0);
                       spe *= dif;
                       spe *= 0.04+0.96*pow(clamp(1.0-dot(hal,lig),0.0,1.0),5.0);
@@ -405,7 +415,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
                       spe *= dif;
                       spe *= 0.04+0.96*pow(clamp(1.0+dot(nor,rd),0.0,1.0), 5.0 );
               //if( spe>0.001 )
-                      spe *= calcSoftshadow( pos, ref, 0.02, 2.5, 1.0, iTime );
+                      spe *= calcSoftshadow( pos_still, ref, 0.02, 2.5, 1.0, iTime );
                 col += col2*0.60*dif*float3(0.40,0.60,1.15);
                 col +=     2.00*spe*float3(0.40,0.60,1.30)*ks;
             }
@@ -416,21 +426,20 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 
         col = sqrt( col );
         tot += col;
-
-
-
-    vec4 backgroundOther = vec4(0.1333333333, 0.1333333333, 0.1333333333, 1);
-    vec4 iconBackground = vec4(vec3(8.0/255.0), 1.0);
     
-    
-    float3 ro2 = float3(0.0,0.0,9.0);
     
     vec2 q = fragCoord.xy / iResolution.xy;
     vec2 uvSq = -1.0 + 2.0 * q;
     uvSq.x *= iResolution.x/iResolution.y;
     
-  
-//    uvSq = skew(uvSq, ((sin(iTime / 1.0) + 1.0) - 1.0) / 4.0);
+    float2 q2 = q;
+    q2.y = 1.0 - q.y;
+    
+    
+    vec4 backgroundOther = vec4(0.1333333333, 0.1333333333, 0.1333333333, 1);
+    vec4 iconBackground = vec4(vec3(8.0/255.0), 1.0);
+    
+
     
     bool inSquircle = squircle(uvSq.xy);
     fragColor = half4( half3(tot) , alpha );
@@ -438,13 +447,46 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     if (!inSquircle) {
     
         if ((fragCoord.y / iResolution.y) < 0.5) {
-            fragColor = backgroundOther;
+            float m = clamp(iTime, 0.0, 1.0);
+            vec2 uv = fragCoord.xy / iResolution.xy;
+            vec2 d = abs((uv - 0.5) * 2.0) * 5.0;
+            if (d.x > 3.5) {
+                m += pow(d.x - 3.5, 3.0);
+            }
+            if (d.y > 3.5) {
+                m += pow(d.y - 3.5, 3.0);
+            }
+            m = clamp(m, 0.0, 1.0);
+
+            fragColor = mix(fragColor, backgroundOther, m);
+
+            // vec2 uv = fragCoord.xy / iResolution.xy;
+            // vec2 d = abs((uv - 0.5) * 2.0) * 5.0;
+            // if (d.x > 3.5) {
+            //     fragColor.w -= pow(d.x - 4.0, 6.0);
+            // }
+            // if (d.y > 3.5) {
+            //     fragColor.w -= pow(d.y - 4.0, 6.0);
+            // }
+
+            // uv *=  1.0 - uv.yx;
+            // float vig = uv.x*uv.y;
+            // vig = pow(vig, 0.05);
+
+            // fragColor = mix(fragColor, backgroundOther, 1.0 - vig);
+
+
         } else {
-            fragColor = mix(fragColor, backgroundOther, 1.0 - fragColor.w);
+            float m = clamp(iTime, 0.0, 1.0);
+            m = min(m, 1.0 - fragColor.w);
+            fragColor = mix(fragColor, backgroundOther, m);
+//            fragColor = mix(fragColor, backgroundOther, 1.0 - fragColor.w);
         }
     } else {
-	        fragColor.xyz = mix(half3(tot), iconBackground.xyz, 1.0 - alpha);
-            fragColor.w = 1.0;
+            float m = clamp(iTime, 0.0, 1.0);
+            m = min(m, 1.0 - alpha);
+	        fragColor.xyz = mix(half3(tot), iconBackground.xyz, m);
+            fragColor.w = max(alpha, m);
     }
 
 }
@@ -480,6 +522,7 @@ function setup(gl, canvas) {
 
     var compiled = gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS);
     var info = gl.getShaderInfoLog(fragmentShader);
+    console.log(info);
 
     gl.linkProgram(shaderProgram);
     gl.useProgram(shaderProgram);
