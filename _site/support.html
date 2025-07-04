@@ -56,7 +56,7 @@
             <source srcset="/images/tintoy/tin-toy-icon-light.png" media="(prefers-color-scheme: light)"/>
             <img src="/images/tintoy/tin-toy-icon.png" height="24" />
         </picture>
-          <!-- <span class="title">Tin Toy</span> -->
+          <span class="title-nav-title">Tin Toy</span>
         </a></li>
         <li><a href="/support" class="other-nav">Tutorial</a></li>
         <li><a href="/examples" class="other-nav">Examples</a></li>
@@ -75,7 +75,7 @@ Each of these functions is called for every pixel within the destination buffer 
 <p><code>mainFragment</code> is the function for the main buffer which is the final destination and default output for your shader. This function is required for any shader.</p>
 
 <pre><code class="language-cpp">[[visible]]
-half4 mainFragment(float2 fragCoord, constant FragmentUniforms &amp;uniforms) {
+half4 mainFragment(float2 fragCoord, FragmentUniforms uniforms) {
     half4 finalColor = half4(0,0,0,1);
     return finalColor;
 }
@@ -89,7 +89,7 @@ To get the proportional uv coordinate (between 0-1), divide the fragCoord by the
 <p>There are four 2d buffers, the same size as the final main buffer, which can also be used. There function signatures are identical to the main fragment function but with named as <code>buffer{index}</code> with their identifiers ‘A’ to ‘D’. For example buffer ‘A’ looks like:</p>
 
 <pre><code class="language-cpp">[[visible]]
-half4 bufferA(float2 fragCoord, constant FragmentUniforms &amp;uniforms) {  // works for bufferA, bufferB, bufferC, &amp; bufferD
+half4 bufferA(float2 fragCoord, FragmentUniforms uniforms) {  // works for bufferA, bufferB, bufferC, &amp; bufferD
     half4 finalColor = half4(0,0,0,1);
     // perform
     return finalColor;
@@ -99,7 +99,7 @@ half4 bufferA(float2 fragCoord, constant FragmentUniforms &amp;uniforms) {  // w
 <h3 id="cubemap">Cubemap</h3>
 <p>The final is a cubemap.</p>
 
-<pre><code class="language-cpp">half4 mainCubemap(float2 fragCoord, float3 rayOrigin, float3 rayDirection, constant FragmentUniforms &amp;uniforms) {
+<pre><code class="language-cpp">half4 mainCubemap(float2 fragCoord, float3 rayOrigin, float3 rayDirection, FragmentUniforms uniforms) {
     half4 finalColor = half4(0,0,0,1);
     // perform
     return finalColor;
@@ -165,7 +165,7 @@ float3 cubeFace(float3 rayDirection) {
 It gives a moving gradient of color which changes along with the time.</p>
 
 <pre><code class="language-cpp">[[visible]]
-half4 mainFragment(float2 fragCoord, constant FragmentUniforms &amp;uniforms) {
+half4 mainFragment(float2 fragCoord, FragmentUniforms uniforms) {
     float2 uv = fragCoord / uniforms.resolution;
     float time = uniforms.time;
     float3 color = 0.5 + 0.5 * cos(time + uv.xyx + float3(0,2,4));

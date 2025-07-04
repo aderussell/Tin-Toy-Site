@@ -436,7 +436,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     q2.y = 1.0 - q.y;
     
     
-    vec4 backgroundOther = vec4(0.1333333333, 0.1333333333, 0.1333333333, 1);
+//    vec4 backgroundOther = vec4(0.1333333333, 0.1333333333, 0.1333333333, 1.0);
     vec4 iconBackground = vec4(vec3(8.0/255.0), 1.0);
     
 
@@ -457,29 +457,18 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
                 m += pow(d.y - 3.5, 3.0);
             }
             m = clamp(m, 0.0, 1.0);
+            alpha = clamp(alpha, 0.0, 1.0);
 
-            fragColor = mix(fragColor, backgroundOther, m);
-
-            // vec2 uv = fragCoord.xy / iResolution.xy;
-            // vec2 d = abs((uv - 0.5) * 2.0) * 5.0;
-            // if (d.x > 3.5) {
-            //     fragColor.w -= pow(d.x - 4.0, 6.0);
-            // }
-            // if (d.y > 3.5) {
-            //     fragColor.w -= pow(d.y - 4.0, 6.0);
-            // }
-
-            // uv *=  1.0 - uv.yx;
-            // float vig = uv.x*uv.y;
-            // vig = pow(vig, 0.05);
-
-            // fragColor = mix(fragColor, backgroundOther, 1.0 - vig);
-
+            //fragColor = mix(fragColor, backgroundOther, m);
+            fragColor.w = min(alpha, 1.0 - m);
+            fragColor.xyz *= fragColor.w;
 
         } else {
             float m = clamp(iTime, 0.0, 1.0);
             m = min(m, 1.0 - fragColor.w);
-            fragColor = mix(fragColor, backgroundOther, m);
+fragColor.w = min(alpha, 1.0 - m);
+            fragColor.xyz *= fragColor.w;
+         //   fragColor = mix(fragColor, backgroundOther, m);
 //            fragColor = mix(fragColor, backgroundOther, 1.0 - fragColor.w);
         }
     } else {

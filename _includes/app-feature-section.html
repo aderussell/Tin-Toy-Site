@@ -1,0 +1,13 @@
+<div class="feature-section-container {%if include.reverse != true %}reverse{% endif %}">
+	<div class="feature-section-container-inner">
+		<div class="feature-section {%if include.reverse %}reverse{% endif %}">
+			<div class="feature-section-info">
+				<h2>{{ include.title }}</h2>
+				<p>{{ include.content }}</p>
+			</div>
+			<div class="feature-section-image">
+				<img src="{{ include.image }}" alt="{{ include.image_alt }}" />
+			</div>
+		</div>
+	</div>
+</div>
