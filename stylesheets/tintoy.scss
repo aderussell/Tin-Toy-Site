@@ -99,6 +99,14 @@ body {
 }
 
 
+.blog-list {
+	width: min(100vw, 600pt);
+
+	img {
+	   max-width: 100%;
+	}
+}
+
 h1, h2, h3, h4, h5, h6 { 
 	line-height: 1;
    // font-weight: 500; 
@@ -277,7 +285,7 @@ iframe {
 .container {
 	padding: 2em;
 	max-width: min(100vw, 600pt);
-	margin: auto;
+	margin: 0 auto;
 }
 
 
