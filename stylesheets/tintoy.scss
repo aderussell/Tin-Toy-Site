@@ -160,6 +160,7 @@ table {
     padding-left: 0pt;
     padding-top: 8pt;
     padding-bottom: 8pt;
+    color: black;
 }
 
 
@@ -244,8 +245,6 @@ footer {
         li { 
 
 
-
-
             a {
           	    display: block; 
                 vertical-align: middle;
@@ -253,6 +252,10 @@ footer {
           	    text-decoration: none;
           	    font-weight: 500;
 
+            }
+
+            a:hover {
+                text-decoration: underline;
             }
         }
 	}
@@ -669,6 +672,10 @@ ul.tokens.grey li {
 	}
 
 .title-nav-title {
+    color: white;
+}
+
+.title-nav {
     color: white;
 }
 
