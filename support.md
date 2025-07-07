@@ -1,5 +1,5 @@
 ---
-layout: tintoy
+layout: article
 navbar: false
 title: Tin Toy
 imagebase: "/images/blog/tintoy/"
