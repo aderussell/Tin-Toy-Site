@@ -18,7 +18,7 @@ imagebase: "/images/blog/tintoy/"
 	<picture>
 	  <source srcset="/images/tintoy/mas-dark.svg" media="(prefers-color-scheme: light)"/>
 	  <source srcset="/images/tintoy/mas-light.svg"  media="(prefers-color-scheme: dark)"/>
-	  <img src="/images/tintoy/mas-dark.svg"/>
+	  <img src="/images/tintoy/mas-dark.svg" alt="Download on the Mac App Store"/>
 	</picture>
 </a>
 
@@ -27,7 +27,7 @@ imagebase: "/images/blog/tintoy/"
 	<picture>
 	  <source srcset="/images/tintoy/app-store-dark.svg" media="(prefers-color-scheme: light)"/>
 	  <source srcset="/images/tintoy/app-store-light.svg"  media="(prefers-color-scheme: dark)"/>
-	  <img src="/images/tintoy/app-store-dark.svg"/>
+	  <img src="/images/tintoy/app-store-dark.svg" alt="Download on the App Store"/>
 	</picture>
 </a>
 
