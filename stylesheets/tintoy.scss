@@ -100,7 +100,7 @@ body {
 
 
 .blog-list {
-	width: min(100vw, 600pt);
+	width: min(calc(100vw - 4em), 600pt);
 
 	img {
 	   max-width: 100%;
@@ -341,10 +341,6 @@ iframe {
 .feature-section-info {
     
 }
-
-
-
-
 
 
 	.site-header {
