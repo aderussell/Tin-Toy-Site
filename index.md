@@ -23,7 +23,7 @@ imagebase: "/images/blog/tintoy/"
 </a>
 
 
-<a class="column-right" target="_blank" href="https://testflight.apple.com/join/38YuPtRy">
+<a class="column-right" target="_blank" href="https://apps.apple.com/us/app/tin-toy/id6737349612">
 	<picture>
 	  <source srcset="/images/tintoy/app-store-dark.svg" media="(prefers-color-scheme: light)"/>
 	  <source srcset="/images/tintoy/app-store-light.svg"  media="(prefers-color-scheme: dark)"/>
