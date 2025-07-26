@@ -20,7 +20,7 @@ struct FragmentUniforms {
 };
 
 [[visible]]
-half4 mainFragment(float2 U, constant FragmentUniforms &uniforms) {
+half4 mainFragment(float2 U, FragmentUniforms uniforms) {
     half4 O = half4(0.0, 0.0, 0.0, 1.0);
     
     float2 Resolution = uniforms.resolution.xy;

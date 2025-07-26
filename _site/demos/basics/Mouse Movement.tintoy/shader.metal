@@ -10,6 +10,12 @@ struct FragmentUniforms {
     int4 date;             
     float2 resolution;  // the resolution of the viewport
     float4 mouse;       // the current mouse position on the viewport as .xy, and press position as .zw
+    float4 textureMediaTimes;
+    texture2d<half> textureA;
+    texture2d<half> textureB;
+    texture2d<half> textureC;
+    texture2d<half> textureD;
+    texturecube<half> cubemap;
 };
 
 // calculate the mix proportion for drawing a circle.
@@ -24,7 +30,7 @@ constant half3 red    = half3(0.867, 0.910, 0.247);
 constant half3 green  = half3(0.117, 0.870, 0.137); 
 
 [[visible]]
-half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
+half4 mainFragment(float2 fragCoord, FragmentUniforms uniforms) {
     float2 resolution = uniforms.resolution;
     float2 uv = fragCoord / resolution;
     

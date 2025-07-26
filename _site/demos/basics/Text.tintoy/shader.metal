@@ -44,7 +44,7 @@ half4 charr(float2 p, int c, texture2d<half> iChannel0) {
 
 
 [[visible]]
-half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
+half4 mainFragment(float2 fragCoord, FragmentUniforms uniforms) {
     float2 uv = fragCoord /= uniforms.resolution.y;
     texture2d<half> tex = uniforms.textureA;
     

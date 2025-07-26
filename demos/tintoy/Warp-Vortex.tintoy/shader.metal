@@ -17,7 +17,7 @@ struct FragmentUniforms {
     float2 resolution;
     float4 mouse;
     float4 textureMediaTimes;
-    texture2d<half> texture;
+    texture2d<half> textureA;
     texture2d<half> textureB;
     texture2d<half> textureC;
     texture2d<half> textureD;
@@ -33,7 +33,7 @@ float2x2 rot(float rads) {
 }
 
 [[visible]]
-half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
+half4 mainFragment(float2 fragCoord, FragmentUniforms uniforms) {
     float pi = 3.14159;
     float iTime = uniforms.time;
     fragCoord /= uniforms.resolution;

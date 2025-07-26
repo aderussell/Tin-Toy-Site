@@ -41,7 +41,7 @@ float3 circle(float2 uv, float2 center, float3 color, int key, texture2d<half> i
 }
 
 [[visible]]
-half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
+half4 mainFragment(float2 fragCoord, FragmentUniforms uniforms) {
     float2 iResolution = uniforms.resolution;
     float2 uv = (-iResolution.xy + 2.0 * fragCoord) / iResolution.y;
     uv.y *= -1.0;

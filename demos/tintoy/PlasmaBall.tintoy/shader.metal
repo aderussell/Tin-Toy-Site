@@ -198,7 +198,7 @@ vec2 iSphere2(vec3 ro, vec3 rd)
 //}
 
 [[visible]]
-half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
+half4 mainFragment(float2 fragCoord, FragmentUniforms uniforms) {
     float time = uniforms.time;
     
     float2 iResolution = uniforms.resolution;

@@ -55,7 +55,7 @@ half4 mixChar(half4 col, float2 p, int c, texture2d<half> texture) {
 
 
 [[visible]]
-half4 mainCubemap(float2 fragCoord, float3 rayOrigin, float3 rayDirection, constant FragmentUniforms &uniforms) {        
+half4 mainCubemap(float2 fragCoord, float3 rayOrigin, float3 rayDirection, FragmentUniforms uniforms) {        
     float3 face = cubeFace(rayDirection);
     
     half4 col = half4(half3(abs(face)), 1.0);
@@ -108,7 +108,7 @@ float2x2 rotate2d(float theta) {
 }
 
 [[visible]]
-half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
+half4 mainFragment(float2 fragCoord, FragmentUniforms uniforms) {
     float2 fc = fragCoord;
     float2 uv = (fc - (0.5 * uniforms.resolution.xy)) / uniforms.resolution.y;
     float2 mouse = uniforms.mouse.xy;

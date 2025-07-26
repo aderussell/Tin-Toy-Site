@@ -15,7 +15,7 @@ struct FragmentUniforms {
     float2 resolution;
     float4 mouse;
     float4 textureMediaTimes;
-    texture2d<half> texture;
+    texture2d<half> textureA;
     texture2d<half> textureB;
     texture2d<half> textureC;
     texture2d<half> textureD;
@@ -128,7 +128,7 @@ float2 Drops(float2 uv, float t, float l0, float l1, float l2) {
 }
 
 [[visible]]
-half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
+half4 mainFragment(float2 fragCoord, FragmentUniforms uniforms) {
     fragCoord.y = uniforms.resolution.y - fragCoord.y;
 //    float3 iMouse = uniforms.mouse.xyz;
     float3 iResolution = float3(uniforms.resolution, 1.0);
@@ -172,7 +172,7 @@ half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
     
     
     float focus = mix(maxBlur-c.y, minBlur, smoothstep(.1, .2, c.x));
-    texture2d<half> texture = uniforms.texture;
+    texture2d<half> texture = uniforms.textureA;
     float2 sampleUV = UV+n;
     sampleUV.y = 1.0 - sampleUV.y;
     float3 col = float3(sampleLod(texture, sampleUV, focus).rgb);

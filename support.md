@@ -18,7 +18,7 @@ There are six functions signatures which will be used for creating your images. 
 
 ```cpp
 [[visible]]
-half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
+half4 mainFragment(float2 fragCoord, FragmentUniforms uniforms) {
     half4 finalColor = half4(0,0,0,1);
     return finalColor;
 }
@@ -33,7 +33,7 @@ There are four 2d buffers, the same size as the final main buffer, which can als
 
 ```cpp
 [[visible]]
-half4 bufferA(float2 fragCoord, constant FragmentUniforms &uniforms) {  // works for bufferA, bufferB, bufferC, & bufferD
+half4 bufferA(float2 fragCoord, FragmentUniforms uniforms) {  // works for bufferA, bufferB, bufferC, & bufferD
     half4 finalColor = half4(0,0,0,1);
     // perform
     return finalColor;
@@ -45,7 +45,7 @@ half4 bufferA(float2 fragCoord, constant FragmentUniforms &uniforms) {  // works
 The final is a cubemap.
 
 ```cpp
-half4 mainCubemap(float2 fragCoord, float3 rayOrigin, float3 rayDirection, constant FragmentUniforms &uniforms) {
+half4 mainCubemap(float2 fragCoord, float3 rayOrigin, float3 rayDirection, FragmentUniforms uniforms) {
     half4 finalColor = half4(0,0,0,1);
     // perform
     return finalColor;
@@ -119,7 +119,7 @@ It gives a moving gradient of color which changes along with the time.
 
 ```cpp
 [[visible]]
-half4 mainFragment(float2 fragCoord, constant FragmentUniforms &uniforms) {
+half4 mainFragment(float2 fragCoord, FragmentUniforms uniforms) {
     float2 uv = fragCoord / uniforms.resolution;
     float time = uniforms.time;
     float3 color = 0.5 + 0.5 * cos(time + uv.xyx + float3(0,2,4));
